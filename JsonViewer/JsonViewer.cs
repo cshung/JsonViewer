@@ -766,7 +766,16 @@ namespace EPocalipse.Json.Viewer
 
         internal void RefreshText()
         {
-            StringBuilder sb = new StringBuilder( _jsonObject.Text );
+            StringBuilder sb = null;
+            //if (_jsonObject.JsonType == JsonType.Array)
+            {
+                sb = new StringBuilder(string.Format("{0}({1})", _jsonObject.Text, _jsonObject.Fields.Count));
+            }
+            //else
+            {
+                // sb = new StringBuilder(_jsonObject.Text);
+            }
+            
             foreach( ICustomTextProvider textVisualizer in _textVisualizers )
             {
                 try
@@ -780,6 +789,7 @@ namespace EPocalipse.Json.Viewer
                 }
             }
             string text = sb.ToString();
+            
             if( text != this.Text )
                 this.Text = text;
         }
